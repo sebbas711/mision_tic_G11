@@ -12,44 +12,26 @@ Se descontará 5% del salario total antes de descuentos para caja de compensaci�
 
 Luego de considerar toda esta información, el empleado decide construir un programa que permita a cualquier empleado de la empresa verificar si los pagos son correctos."""
 
-nombre = input("Ingrese por favor su nombre: ")
-salario_base = float(input("ingrese su salario base: "))
-valor_hora =  int(salario_base / 195)
-print("El valor de la hora es de: ", round(valor_hora,2))
-horas_extras = int(input("ingrese la cantidad de horas extras hechas: ")) 
-if horas_extras == 0:
-    print("No realizo horas extras")
-elif horas_extras >= 1:
-    hora_extra_total = valor_hora*0.35
-    Total_extras = horas_extras*valor_hora+hora_extra_total
-    print("Usted realizo: ", horas_extras, "horas extras lo que equivale a: ", round(Total_extras,2))
+salario_base, Cantidad_horas_extra, bonificacion = input("").split()
 
-bonificacion = int(input("Si hizo bonificaciones ingrese el numero 1, de lo contrario ingrese el numero 0: "))
+salario_base=float(salario_base)
+Cantidad_horas_extra = int(Cantidad_horas_extra)
+bonificacion=float(bonificacion)
+
+descuento_salud = 0.055
+descuento_pension = 0.05
+descuento_caja = 0.05
+
+Valor_hora = salario_base/195
+Hora_extra = (Valor_hora * 0.35) + Valor_hora
 
 if bonificacion == 1:
-    bonificacion_calculo=salario_base*0.045
-    bonificacion_total=bonificacion_calculo+salario_base
-    print("su bonificacion es de: ", round(bonificacion_total,2))
-    salario_antes_descuentos = salario_base + Total_extras + bonificacion_total
-    print("Su salario antes de los decuentos es de: ", round(salario_antes_descuentos,2))
-    descuento1 = salario_antes_descuentos*0.055
-    descuento2 = salario_antes_descuentos*0.05
-    descuento3 = salario_antes_descuentos*0.05
-    descuentos_nomina = descuento1 + descuento2 + descuento3
-    salario_total = salario_antes_descuentos - descuentos_nomina
-    print("Su salario total es: ", salario_total)
+    bonificacion = salario_base * 0.045
 elif bonificacion == 0:
-    print("Usted no gano bonificaciones este mes")
-    salario_antes_descuentos = salario_base + Total_extras
-    print("Su salario antes de los decuentos es de: ", round(salario_antes_descuentos,2))
-    descuento1 = salario_antes_descuentos*0.055
-    descuento2 = salario_antes_descuentos*0.05
-    descuento3 = salario_antes_descuentos*0.05
-    descuentos_nomina = descuento1 + descuento2 + descuento3
-    salario_total = salario_antes_descuentos - descuentos_nomina
-    print("Su salario total es: ", salario_total)
+    bonificacion = 0
 
+salario_total_antes = salario_base+(Cantidad_horas_extra*Hora_extra)+bonificacion 
 
+salario_total = salario_total_antes - ((descuento_caja*salario_total_antes)+(descuento_pension*salario_total_antes)+(descuento_salud*salario_total_antes))  
 
-
-
+print(f"{salario_total:.1f} {salario_total_antes:.1f}")
